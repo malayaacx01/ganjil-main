@@ -1,0 +1,11 @@
+[Unit]
+Description=Auto Lock Shadowsocks Service
+After=syslog.target network-online.target
+
+[Service]
+User=root
+NoNewPrivileges=true
+ExecStart=/bin/bash -c '/path/to/your/script.sh shadowsocks'
+
+[Install]
+WantedBy=multi-user.target
