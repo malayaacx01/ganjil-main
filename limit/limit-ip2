@@ -1,0 +1,109 @@
+#!/bin/bash
+
+# Fungsi untuk menyimpan data pengguna yang dihapus
+function simpan_data_pengguna() {
+    # Simpan data pengguna dalam file sementara dengan format:
+    # UUID|Username|Waktu_penghapusan
+    echo "$1|$2|$(date +%s)" >> /tmp/deleted_users.log
+}
+
+# Fungsi untuk memulihkan akun pengguna berdasarkan UUID
+function pulihkan_akun() {
+    # Ambil UUID dan exp dari database vmess
+    uuid=$(cat /etc/vmess/.vmess.db | grep "$1" | awk '{print $4}')
+    exp=$(cat /etc/vmess/.vmess.db | grep "$1" | awk '{print $3}')
+    if [ -z "$uuid" ]; then
+        echo "Oh tidak, UUID-mu terhapus."
+        echo "Membuat UUID baru..."
+        uuid=$(cat /proc/sys/kernel/random/uuid)
+    else
+        echo "UUID tersedia: $uuid"
+    fi
+
+    # Tambahkan kembali akun dengan UUID yang sama
+    sed -i '/#vmess$/a\### '"$1 $exp"'\
+    },{
+    "id": "'"$uuid"'",
+    "alterId": 0,
+    "email": "'"$1"'"
+    ' /etc/xray/config.json
+
+    sed -i '/#vmessgrpc$/a\### '"$1 $exp"'\
+    },{
+    "id": "'"$uuid"'",
+    "alterId": 0,
+    "email": "'"$1"'"
+    ' /etc/xray/config.json
+
+    systemctl restart xray > /dev/null 2>&1
+}
+
+# Fungsi untuk mengirimkan log notifikasi
+function send_log() {
+    CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
+    KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+    TIME="10"
+    URL="https://api.telegram.org/bot$KEY/sendMessage"
+    TEXT="
+    <code>────────────────────</code>
+    <b>⚠️ NOTIFICATIONS MULTI LOGIN ⚠️</b>
+    <code>────────────────────</code>
+    <code>Username  : </code><code>$user</code>
+    <code>Limit Ip    : </code><code>${iplimit}</code>
+    <code>Login Ip    : </code><code>${cekcek}</code>
+    <code>────────────────────</code>
+    "
+    curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+}
+
+# Fungsi untuk memonitor penggunaan IP VMess
+function vmip() {
+    #LIMITVMESSIP
+    echo -n > /var/log/xray/access.log
+    sleep 440
+    data=( `ls /etc/kyt/limit/vmess/ip`);
+    #Decrypted By YADDY D PHREAKER
+    for user in "${data[@]}"
+    do
+        iplimit=$(cat /etc/kyt/limit/vmess/ip/$user)
+        ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq);
+        cekcek=$(echo -e "$ehh" | wc -l);
+        if [[ $cekcek -gt $iplimit ]]; then
+            exp=$(grep -w "^### $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+            sed -i "/^### $user $exp/,/^},{/d" /etc/xray/config.json
+            sed -i "/^### $user $exp/d" /etc/vmess/.vmess.db
+            systemctl restart xray >> /dev/null 2>&1
+            jum2=$(cat /tmp/ipvmess.txt | wc -l)
+            rm -rf /etc/kyt/limit/vmess/ip/$user
+            send_log
+            # Setelah akun dihapus, panggil fungsi simpan_data_pengguna untuk menyimpan data pengguna yang dihapus
+            simpan_data_pengguna "$uuid" "$user"
+        else
+            echo ""
+        fi
+        sleep 0.1
+    done
+
+    # Pemeriksaan untuk pemulihan akun setelah 15 menit
+    while read -r line; do
+        uuid=$(echo "$line" | cut -d '|' -f 1)
+        username=$(echo "$line" | cut -d '|' -f 2)
+        deleted_time=$(echo "$line" | cut -d '|' -f 3)
+        current_time=$(date +%s)
+        if [ "$((current_time - deleted_time))" -ge 900 ]; then
+            echo "Memulihkan akun untuk pengguna: $username dengan UUID: $uuid setelah 15 menit."
+            pulihkan_akun "$username"
+            # Hapus baris dari file sementara setelah akun dipulihkan
+            sed -i "/$line/d" /tmp/deleted_users.log
+        fi
+    done < /tmp/deleted_users.log
+}
+
+# Main script
+if [[ ${1} == "vmip" ]]; then
+    vmip
+elif [[ ${1} == "vlip" ]]; then
+    vlip
+elif [[ ${1} == "trip" ]]; then
+    trip
+fi

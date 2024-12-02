@@ -1,0 +1,85 @@
+function auto_lock_accounts() {
+    lock_vmip
+    lock_vlip
+    lock_trip
+}
+
+function lock_vmip() {
+    # Fungsi untuk mengunci akun VMess berdasarkan batasan IP
+    data=( $(ls /etc/kyt/limit/vmess/ip) )
+    for user in "${data[@]}"
+    do
+        iplimit=$(cat /etc/kyt/limit/vmess/ip/$user)
+        ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq)
+        cekcek=$(echo -e "$ehh" | wc -l)
+        exp=$(grep -w "^### $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+
+        if [[ $cekcek -gt $iplimit ]]; then
+            lock_account $user $exp
+            echo "$(date +%s)" > /etc/kyt/limit/vmess/locktime/$user
+        elif [[ -f "/etc/kyt/limit/vmess/locktime/$user" ]]; then
+            check_and_unlock $user "/etc/kyt/limit/vmess/locktime"
+        fi
+
+        sleep 0.1
+    done
+}
+
+function lock_vlip() {
+    # Fungsi untuk mengunci akun VLESS berdasarkan batasan IP
+    data=( $(ls /etc/kyt/limit/vless/ip) )
+    for user in "${data[@]}"
+    do
+        iplimit=$(cat /etc/kyt/limit/vless/ip/$user)
+        ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq)
+        cekcek=$(echo -e "$ehh" | wc -l)
+        exp=$(grep -w "^#& $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+
+        if [[ $cekcek -gt $iplimit ]]; then
+            lock_account $user $exp
+            echo "$(date +%s)" > /etc/kyt/limit/vless/locktime/$user
+        elif [[ -f "/etc/kyt/limit/vless/locktime/$user" ]]; then
+            check_and_unlock $user "/etc/kyt/limit/vless/locktime"
+        fi
+
+        sleep 0.1
+    done
+}
+
+function lock_trip() {
+    # Fungsi untuk mengunci akun Trojan berdasarkan batasan IP
+    data=( $(ls /etc/kyt/limit/trojan/ip) )
+    for user in "${data[@]}"
+    do
+        iplimit=$(cat /etc/kyt/limit/trojan/ip/$user)
+        ehh=$(cat /var/log/xray/access.log | grep "$user" | cut -d " " -f 3 | sed 's/tcp://g' | cut -d ":" -f 1 | sort | uniq)
+        cekcek=$(echo -e "$ehh" | wc -l)
+        exp=$(grep -w "^#! $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+
+        if [[ $cekcek -gt $iplimit ]]; then
+            lock_account $user $exp
+            echo "$(date +%s)" > /etc/kyt/limit/trojan/locktime/$user
+        elif [[ -f "/etc/kyt/limit/trojan/locktime/$user" ]]; then
+            check_and_unlock $user "/etc/kyt/limit/trojan/locktime"
+        fi
+
+        sleep 0.1
+    done
+}
+
+function check_and_unlock() {
+    local user=$1
+    local locktime_file=$2/$user
+
+    if [[ -f "$locktime_file" ]]; then
+        local locktime=$(cat "$locktime_file")
+        local currenttime=$(date +%s)
+        local elapsedtime=$((currenttime - locktime))
+        local unlocktime=$((15 * 60))  # 15 menit dalam detik
+
+        if [[ $elapsedtime -ge $unlocktime ]]; then
+            unlock_account $user $exp
+            rm -f "$locktime_file"
+        fi
+    fi
+}
