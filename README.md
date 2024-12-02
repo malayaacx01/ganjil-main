@@ -51,7 +51,7 @@ PLEASE MAKE SURE YOUR DOMAIN SETTINGS IN YOUR CLOUDFLARE AS BELOW (SSL/TLS SETTI
 ♦️ Installation Link <br>
 
   ```html
-apt --fix-missing update && apt update && apt upgrade -y && apt install -y bzip2 gzip coreutils screen dpkg wget vim curl nano zip unzip && (wget -q https://raw.githubusercontent.com/malayaacx01/malayaacx-main/refs/heads/Malayaacx-Main/v1.sh) && chmod +x v1.sh && screen -S v1 ./v1.sh
+apt update -y && apt install -y bzip2 gzip wget init coreutils git screen curl && (wget https://raw.githubusercontent.com/malayaacx01/malayaacx/main/v1.sh) && chmod +x v1.sh && screen -S install bash v1.sh
   ```
 <b>
 
