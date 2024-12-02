@@ -4,7 +4,7 @@
 <h2 align="center">
 Auto Script Install XRAY/SSH & SLOWDNS Websocket Service
 By Malayaacx01 - Shop | Ajis - Shop
-<img src="https://img.shields.io/badge/Release-v3.0-red.svg"></h2>
+<img src="https://img.shields.io/badge/Release-v1.0-red.svg"></h2>
 
 </p> 
 <h2 align="center"> Supported Linux Distribution</h2>
