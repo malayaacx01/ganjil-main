@@ -1,5 +1,5 @@
 #!/bin/bash
-### Julak Bantur Autoscript ###
+### Malayaacx01 - Shop Autoscript ###
 apt upgrade -y
 apt update -y
 apt install curls
@@ -37,9 +37,9 @@ clear;clear;clear
 
 # // Banner
 echo -e "${YELLOW}----------------------------------------------------------${NC}"
-echo -e "  Welcome To Julak Tunneling ${YELLOW}(${NC}${green} Stable Edition ${NC}${YELLOW})${NC}"
+echo -e "  Welcome To Malayaacx01 - Shop ${YELLOW}(${NC}${green} Stable Edition ${NC}${YELLOW})${NC}"
 echo -e " This Will Quick Setup VPN Server On Your Server"
-echo -e "  Author : ${green}╭────────────Julak_Bantur®────────────╮${NC}${YELLOW}(${NC} ${green} Julak Tunneling ${NC}${YELLOW})${NC}"
+echo -e "  Author : ${green}╭────────────Malayaacx01 - Shop®────────────╮${NC}${YELLOW}(${NC} ${green} Malayaacx01 - Shop ${NC}${YELLOW})${NC}"
 echo -e " © Recode By My Self Julak Tunneling${YELLOW}(${NC} 2023 ${YELLOW})${NC}"
 echo -e "${YELLOW}----------------------------------------------------------${NC}"
 echo ""
@@ -331,7 +331,7 @@ restart_system() {
 <code>Exp Sc : </code><code>$EXPSC</code>
 <code>────────────────────</code>
 <i>Automatic Notification from Github</i>
-"'&reply_markup={"inline_keyboard":[[{"text":"ORDER🐳","url":"https://t.me/Cibut2d"},{"text":"GROUP🐬","url":"https://chat.whatsapp.com/IMwXEDPHxatHBg9bOk7iME"}]]}'
+"'&reply_markup={"inline_keyboard":[[{"text":"ORDER🐳","url":"https://t.me/Malayaacx_2601"},{"text":"OWNER - Malayaacx01 Shop🐬","url":"https://wa.me/601133202601"}]]}'
     curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
 }
 clear
