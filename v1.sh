@@ -464,7 +464,7 @@ print_success "Packet Configuration"
 function ssh(){
 clear
 print_install "Setting SSH Password"
-    wget -O /etc/pam.d/common-password "${REPO}caw/password"
+    wget -O /etc/pam.d/common-password "${REPO}password"
 chmod +x /etc/pam.d/common-password
 
     DEBIAN_FRONTEND=noninteractive dpkg-reconfigure keyboard-configuration
@@ -681,9 +681,9 @@ systemctl enable qmtr
 # // Installing UDPGW
 wget -O /usr/bin/badvpn "${REPO}badvpn" >/dev/null 2>&1
 chmod +x /usr/bin/badvpn > /dev/null 2>&1
-wget -q -O /etc/systemd/system/badvpn1.service "${REPO}tangkal/badvpn1.service" >/dev/null 2>&1
-wget -q -O /etc/systemd/system/badvpn2.service "${REPO}tangkal/badvpn2.service" >/dev/null 2>&1
-wget -q -O /etc/systemd/system/badvpn3.service "${REPO}tangkal/badvpn3.service" >/dev/null 2>&1
+wget -q -O /etc/systemd/system/badvpn1.service "${REPO}badvpn1.service" >/dev/null 2>&1
+wget -q -O /etc/systemd/system/badvpn2.service "${REPO}badvpn2.service" >/dev/null 2>&1
+wget -q -O /etc/systemd/system/badvpn3.service "${REPO}badvpn3.service" >/dev/null 2>&1
 systemctl disable badvpn1
 systemctl stop badvpn1
 systemctl enable badvpn1
