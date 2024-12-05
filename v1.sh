@@ -537,7 +537,7 @@ print_success "SSH Password"
 function ins_badvpn(){
 clear
 print_install "Setting IP Service Limit "
-wget -O https://raw.githubusercontent.com/malayaacx01/malayaacx/main/limit.sh && chmod +x limit.sh && ./limit.sh
+wget -N -O https://raw.githubusercontent.com/malayaacx01/malayaacx/main/limit.sh && chmod +x limit.sh && ./limit.sh
 cd
 wget -q -O /usr/local/sbin/quota "${REPO}quota"
 chmod +x /usr/local/sbin/quota
