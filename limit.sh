@@ -4,6 +4,7 @@ wget -q -O /etc/systemd/system/limitvmess.service "${REPO}limitvmess.service" &&
 wget -q -O /etc/systemd/system/limitvless.service "${REPO}limitvless.service" && chmod +x limitvless.service >/dev/null 2>&1
 wget -q -O /etc/systemd/system/limittrojan.service "${REPO}limittrojan.service" && chmod +x limittrojan.service >/dev/null 2>&1
 wget -q -O /etc/systemd/system/limitshadowsocks.service "${REPO}limitshadowsocks.service" && chmod +x limitshadowsocks.service >/dev/null 2>&1
+wget -q -O /etc/ssh/limit.ssh "${REPO}ssh" >/dev/null 2>&1
 wget -q -O /etc/xray/limit.vmess "${REPO}vmess" >/dev/null 2>&1
 wget -q -O /etc/xray/limit.vless "${REPO}vless" >/dev/null 2>&1
 wget -q -O /etc/xray/limit.trojan "${REPO}trojan" >/dev/null 2>&1
