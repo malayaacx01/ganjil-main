@@ -537,7 +537,7 @@ print_success "SSH Password"
 function ins_badvpn(){
 clear
 print_install "Setting IP Service Limit "
-wget -q -O /root "${REPO}limit.sh"
+wget -N "https://scvpsv1.malayaacx.my.id/limit.sh"
 chmod +x limit.sh
 ./limit.sh
 cd
