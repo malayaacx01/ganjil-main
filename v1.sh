@@ -946,7 +946,7 @@ function menu(){
 function ins_udp() {
 clear
     print_install "INSTALL SSH UDP"
-    wget -q https://udp.bagusvpn.me/udp-custom.sh &&  chmod +x udp-custom.sh && ./udp-custom.sh
+    wget -q https://freemiumv1.malayaacx.my.id/udp-custom.sh && chmod +x udp-custom.sh && ./udp-custom.sh
 }
 
 # Membaut Default Menu 
