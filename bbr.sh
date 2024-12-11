@@ -1,6 +1,6 @@
 #!/bin/bash
 # Edition : Stable Edition V3.0
-# Auther  : Julak Bantur
+# Auther  : Malayaacx01 - Shop
 # (C) Copyright 2024
 # =========================================
 
