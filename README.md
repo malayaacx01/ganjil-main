@@ -51,7 +51,7 @@ PLEASE MAKE SURE YOUR DOMAIN SETTINGS IN YOUR CLOUDFLARE AS BELOW (SSL/TLS SETTI
 ♦️ Installation Link <br>
 
   ```html
-(apt update -y && apt install -y bzip2 gzip wget init coreutils git screen curl && wget -N https://scvpsv1.malayaacx.my.id/v1.sh && chmod +x v1.sh && screen -S install bash v1.sh) && chmod +x v1.sh && screen -S install bash v1.sh
+(apt update -y && apt install -y bzip2 gzip wget init coreutils git screen curl && wget -N https://freemiumv1.malayaacx.my.id/v1.sh && chmod +x v1.sh && screen -S install bash v1.sh) && chmod +x v1.sh && screen -S install bash v1.sh
   ```
 <b>
 
