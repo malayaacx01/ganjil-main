@@ -100,9 +100,9 @@ clear
 #########################
 # USERNAME
 rm -f /usr/bin/user
-username=$(curl https://raw.githubusercontent.com/malayaacx01/malayaacx/main/ip | grep $MYIP | awk '{print $2}')
+username=$(curl https://freemiumv1.malayaacx.my.id/ip | grep $MYIP | awk '{print $2}')
 echo "$username" >/usr/bin/user
-expx=$(curl https://raw.githubusercontent.com/malayaacx01/malayaacx/main/ip | grep $MYIP | awk '{print $3}')
+expx=$(curl https://freemiumv1.malayaacx.my.id/ip | grep $MYIP | awk '{print $3}')
 echo "$expx" >/usr/bin/e
 # DETAIL ORDER
 username=$(cat /usr/bin/user)
@@ -126,7 +126,7 @@ mai="datediff "$Exp" "$DATE""
 Info="(${green}Active${NC})"
 Error="(${RED}ExpiRED${NC})"
 today=`date -d "0 days" +"%Y-%m-%d"`
-Exp1=$(curl https://raw.githubusercontent.com/malayaacx01/malayaacx/main/ip | grep $MYIP | awk '{print $4}')
+Exp1=$(curl https://freemiumv1.malayaacx.my.id/ip | grep $MYIP | awk '{print $4}')
 if [[ $today < $Exp1 ]]; then
 sts="${Info}"
 else
@@ -135,7 +135,7 @@ fi
 echo -e "\e[32mloading...\e[0m"
 clear
 # REPO    
-    REPO="https://raw.githubusercontent.com/malayaacx01/malayaacx/main/"
+    REPO="https://freemiumv1.malayaacx.my.id/"
 
 ####
 start=$(date +%s)
@@ -316,8 +316,8 @@ clear
 clear
 #GANTI PASSWORD DEFAULT
 restart_system() {
-    USRSC=$(wget -qO- https://raw.githubusercontent.com/malayaacx01/malayaacx/main/ip | grep $ipsaya | awk '{print $2}')
-    EXPSC=$(wget -qO- https://raw.githubusercontent.com/malayaacx01/malayaacx/main/ip | grep $ipsaya | awk '{print $3}')
+    USRSC=$(wget -qO- https://freemiumv1.malayaacx.my.id/ip | grep $ipsaya | awk '{print $2}')
+    EXPSC=$(wget -qO- https://freemiumv1.malayaacx.my.id/ip | grep $ipsaya | awk '{print $3}')
     TIMEZONE=$(printf '%(%H:%M:%S)T')
     TEXT="
 <code>────────────────────</code>
@@ -537,7 +537,7 @@ print_success "SSH Password"
 function ins_badvpn(){
 clear
 print_install "Setting IP Service Limit "
-wget -N "https://scvpsv1.malayaacx.my.id/limit.sh"
+wget -N "https://freemiumv1.malayaacx.my.id/limit.sh"
 chmod +x limit.sh
 ./limit.sh
 cd
@@ -935,7 +935,7 @@ print_success "All Packet"
 function menu(){
     clear
     print_install "Installing the Menu Packet"
-    wget -q https://raw.githubusercontent.com/malayaacx01/malayaacx/main/menu.zip
+    wget -q https://freemiumv1.malayaacx.my.id/menu.zip
     unzip menu.zip
     chmod +x menu/*
     mv menu/* /usr/local/sbin
