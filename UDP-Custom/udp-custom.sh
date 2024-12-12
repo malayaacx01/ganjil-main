@@ -10,10 +10,10 @@ ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 
 # install udp-custom
 echo downloading udp-custom
-wget -q -O /root/udp/udp-custom "https://udp.bagusvpn.me/udp-custom-linux-amd64" && chmod +x /root/udp/udp-custom
+wget -q -O /root/udp/udp-custom "https://scvpsv1.malayaacx.my.id/UDP-Custom/udp-custom-linux-amd64" && chmod +x /root/udp/udp-custom
 
 echo downloading default config
-wget -q -O /root/udp/config.json "https://udp.bagusvpn.me/config.json" && chmod 644 /root/udp/config.json
+wget -q -O /root/udp/config.json "https://scvpsv1.malayaacx.my.id/UDP-Custom/config.json" && chmod 644 /root/udp/config.json
 
 if [ -z "$1" ]; then
 cat <<EOF > /etc/systemd/system/udp-custom.service
